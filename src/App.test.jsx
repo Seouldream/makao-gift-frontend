@@ -10,6 +10,4 @@ test('App', () => {
       <App />
     </MemoryRouter>
   ));
-
-  screen.getByText(/Hello/);
 });
