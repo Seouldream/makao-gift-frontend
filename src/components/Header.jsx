@@ -20,10 +20,7 @@ export default function Header() {
       <Navigation>
         <MenuList>
           <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">로그인</Link>
+            <Link to="/">홈</Link>
           </li>
           <li>
             <Link to="/products">스토어</Link>
@@ -33,6 +30,12 @@ export default function Header() {
           </li>
           <li>
             <UserInfo />
+          </li>
+          <li>
+            <Link to="/signup">회원가입</Link>
+          </li>
+          <li>
+            <Link to="/login">로그인</Link>
           </li>
         </MenuList>
       </Navigation>

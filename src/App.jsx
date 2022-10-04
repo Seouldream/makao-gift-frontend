@@ -8,6 +8,7 @@ import OrderDetailPage from './pages/OrderDetailPage';
 import OrderListPage from './pages/OrderListPage';
 import OrderPage from './pages/OrderPage';
 import ProductDetailPage from './pages/ProductDetailPage';
+import SignupPage from './pages/SignupPage';
 import StorePage from './pages/StorePage';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -28,6 +29,7 @@ export default function App() {
       <Main>
         <Routes>
           <Route index element={<HomePage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/products" element={<StorePage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />

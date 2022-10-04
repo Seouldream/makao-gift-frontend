@@ -4,10 +4,17 @@ export default class UserStore {
   constructor() {
     this.listeners = new Set();
 
+    this.userId = '';
     this.name = '';
     this.id = '';
     this.amount = 0;
     this.orderList = [];
+
+    this.loginState = '';
+
+    this.registrationState = '';
+
+    this.errorMessage = '';
   }
 
   subscribe(listener) {
@@ -45,6 +52,29 @@ export default class UserStore {
     this.amount = amount;
 
     this.publish();
+  }
+
+  async register({
+    name, userId, password, confirmPassword,
+  }) {
+    try {
+      await apiService.createUser({
+        userId, name, password, confirmPassword,
+      });
+    } catch (e) {
+      const { message } = e.response.data;
+      this.changeRegistrationState('existing', { errorMessage: message });
+    }
+  }
+
+  changeRegistrationState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.registrationState = state;
+    this.publish();
+  }
+
+  get isExistingUserId() {
+    return this.registrationState === 'existing';
   }
 }
 

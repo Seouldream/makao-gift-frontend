@@ -15,6 +15,22 @@ export default class ApiService {
     };
   }
 
+  async createUser({
+    userId, name, password, confirmPassword,
+  }) {
+    const url = `${baseUrl}/signup`;
+
+    const { data } = await axios.post(url, {
+      userId, name, password, confirmPassword,
+    });
+    return {
+      userId: data.userId,
+      name: data.name,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    };
+  }
+
   async fetchUser() {
     const url = `${baseUrl}/users/me`;
 
