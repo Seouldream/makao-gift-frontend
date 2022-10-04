@@ -33,7 +33,7 @@ export default class ApiService {
 
     const { data } = await axios.get(url);
     const { products } = data;
-    console.log('products', products);
+
     return products;
   }
 }

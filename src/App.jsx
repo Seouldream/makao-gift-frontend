@@ -4,6 +4,7 @@ import { Reset } from 'styled-reset';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import OrderDetailPage from './pages/OrderDetailPage';
 import OrderListPage from './pages/OrderListPage';
 import OrderPage from './pages/OrderPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -28,11 +29,11 @@ export default function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/products" element={<StorePage />}>
-            <Route path=":productId" element={<ProductDetailPage />} />
-          </Route>
+          <Route path="/products" element={<StorePage />} />
+          <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/orders" element={<OrderListPage />} />
+          <Route path="/orders/:productId" element={<OrderDetailPage />} />
           <Route
             path="*"
             element={(

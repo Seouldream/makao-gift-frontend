@@ -1,9 +1,13 @@
-import {
-  Link, Outlet, Route, Routes,
-} from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+import styled from 'styled-components';
 import useProductsStore from '../hooks/UseProductsStore';
-import ProductDetailPage from '../pages/ProductDetailPage';
 import numberFormat from '../utils/numberFormat';
+import cup from '../assets/madeleineMug.jpeg';
+
+const ProductImg = styled.img`
+  width: 200px;
+  height: 200px;
+`;
 
 export default function Products() {
   const productsStore = useProductsStore();
@@ -27,6 +31,8 @@ export default function Products() {
               key={product.id}
             >
               <li key={product.id}>
+                <ProductImg src={cup} alt="cupImage" />
+                <br />
                 {product.brand}
                 <br />
                 {product.name}
