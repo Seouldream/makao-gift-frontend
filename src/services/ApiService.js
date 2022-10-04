@@ -14,6 +14,28 @@ export default class ApiService {
       amount: data.amount,
     };
   }
+
+  async fetchUser() {
+    const url = `${baseUrl}/users/me`;
+
+    const { data } = await axios.get(url);
+
+    return {
+      id: data.id,
+      userId: data.userId,
+      name: data.name,
+      amount: data.amount,
+    };
+  }
+
+  async fetchProducts() {
+    const url = `${baseUrl}/products`;
+
+    const { data } = await axios.get(url);
+    const { products } = data;
+    console.log('products', products);
+    return products;
+  }
 }
 
 export const apiService = new ApiService();

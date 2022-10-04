@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import OrderListPage from './pages/OrderListPage';
 import OrderPage from './pages/OrderPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 import StorePage from './pages/StorePage';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -27,9 +28,19 @@ export default function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/products" element={<StorePage />} />
+          <Route path="/products" element={<StorePage />}>
+            <Route path=":productId" element={<ProductDetailPage />} />
+          </Route>
           <Route path="/order" element={<OrderPage />} />
           <Route path="/orders" element={<OrderListPage />} />
+          <Route
+            path="*"
+            element={(
+              <main style={{ padding: '1rem' }}>
+                <p>There's nothing here!</p>
+              </main>
+            )}
+          />
         </Routes>
       </Main>
     </>

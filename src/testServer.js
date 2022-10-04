@@ -12,15 +12,27 @@ const server = setupServer(
     if (userId === 'makaoKim' && password === 'iammakaoKim92!') {
       return res(ctx.json({
         accessToken: 'ACCESS.TOKEN',
-        name: '마카오김',
+        name: 'makaoKim',
         amount: 50_000,
       }));
     }
 
-    return res(
-      ctx.status(400),
-    );
+    return res(ctx.status(400));
   }),
+
+  rest.get(`${baseUrl}/users/me`, async (req, res, ctx) => res(ctx.json({
+    userId: 'makaoKim',
+    name: 'makaoKim',
+    amount: 50_000,
+  }))),
+
+  rest.get(`${baseUrl}/products`, async (req, res, ctx) => res(ctx.json({
+    products: [
+      {
+        id: 1, brand: 'cup-maker', name: 'mug', price: 1_000,
+      },
+    ],
+  }))),
 );
 
 export default server;

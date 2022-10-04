@@ -1,23 +1,15 @@
-// import { useNavigate } from 'react-router-dom';
-
-// import styled from 'styled-components';
-// import { useLocalStorage } from 'usehooks-ts';
-
-// import main from '../assets/main.png';
+import { useEffect } from 'react';
+import Products from '../components/Products';
+import useProductsStore from '../hooks/UseProductsStore';
 
 export default function StorePage() {
-//   const [accessToken] = useLocalStorage('accessToken', '');
+  const productsStore = useProductsStore();
 
-  //   const navigate = useNavigate();
+  useEffect(() => {
+    productsStore.fetchProducts();
+  }, []);
 
-  //   const handleClickToTransfer = () => {
-  //     if (accessToken ? navigate('/transfer') : navigate('/login'));
-  //   };
-
-  //   const handleClickToTransaction = () => {
-  //     if (accessToken ? navigate('/transactions') : navigate('/login'));
-  //   };
   return (
-    <p>Store</p>
+    <Products />
   );
 }

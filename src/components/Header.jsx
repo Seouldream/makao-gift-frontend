@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import UserInfo from './UserInfo';
 
 const Navigation = styled.nav`
   display: flex;
@@ -32,6 +33,9 @@ export default function Header() {
           </li>
           <li>
             <Link to="/orders">주문조회</Link>
+          </li>
+          <li>
+            <UserInfo />
           </li>
         </MenuList>
       </Navigation>
