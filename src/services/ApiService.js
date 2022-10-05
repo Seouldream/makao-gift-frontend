@@ -61,6 +61,25 @@ export default class ApiService {
 
     return orders;
   }
+
+  async createAnOrder({
+    recipient,
+    address,
+    message,
+    productId,
+    quantity,
+    amount,
+  }) {
+    const url = `${baseUrl}/orders`;
+    await axios.post(url, {
+      recipient,
+      address,
+      message,
+      productId,
+      quantity,
+      amount,
+    });
+  }
 }
 
 export const apiService = new ApiService();

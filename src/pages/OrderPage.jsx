@@ -2,7 +2,9 @@
 // import LoginForm from '../components/LoginForm';
 
 import { useForm } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
+import {
+  Link, Navigate, useLocation, useNavigate,
+} from 'react-router-dom';
 import styled from 'styled-components';
 
 import cat from '../assets/uselessCandy1.jpeg';
@@ -15,7 +17,8 @@ const ProductImage = styled.img`
 
 export default function OrderPage() {
   const location = useLocation();
-  console.log(location);
+
+  const navigate = useNavigate();
 
   const { product, quantity, amount } = location.state;
 
@@ -33,6 +36,8 @@ export default function OrderPage() {
       quantity,
       amount,
     });
+
+    navigate('/orders');
   };
 
   return (
@@ -79,7 +84,7 @@ export default function OrderPage() {
           <input
             id="input-address"
             type="text"
-            {...register('message', { required: true })}
+            {...register('address', { required: true })}
           />
         </div>
         <div>
@@ -92,7 +97,7 @@ export default function OrderPage() {
           />
         </div>
         <button type="submit">
-          <Link to="/orders">선물하기</Link>
+          선물하기
         </button>
       </form>
     </div>
