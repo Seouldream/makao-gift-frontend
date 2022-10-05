@@ -5,6 +5,8 @@ export default class OrderListStore {
     this.listeners = new Set();
 
     this.orders = [];
+
+    this.placingAnOrderState = '';
   }
 
   subscribe(listener) {
@@ -25,6 +27,40 @@ export default class OrderListStore {
 
     this.orders = await apiService.fetchOrderList();
 
+    this.publish();
+  }
+
+  async requestPlaceAnOrder({
+    recipient,
+    address,
+    message,
+    productId,
+    quantity,
+    amount,
+  }) {
+    this.changePlacingAnOrderState('processing');
+
+    try {
+      await apiService.createAnOrder({
+        recipient,
+        address,
+        message,
+        productId,
+        quantity,
+        amount,
+      });
+      this.changePlacingAnOrderState('success');
+    } catch (e) {
+      const { errorMessage } = e.response.data;
+      if (errorMessage === '잔액이 부족합니다.') {
+        this.changePlacingAnOrderState('insufficientAmount', { errorMessage });
+      }
+    }
+  }
+
+  changePlacingAnOrderState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.placingAnOrderState = state;
     this.publish();
   }
 }

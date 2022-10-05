@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import cat from '../assets/uselessCandy1.jpeg';
+import { orderListStore } from '../stores/OrderListStore';
 
 const ProductImage = styled.img`
   width: 300px;
@@ -20,9 +21,18 @@ export default function OrderPage() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data) => {
-    const { name, address, message } = data;
-    bankStore.requestTransfer({ name, address, message });
+  const onSubmit = (recipientInfo) => {
+    const { recipient, address, message } = recipientInfo;
+    const productInfo = { product, quantity, amount };
+
+    orderListStore.requestPlaceAnOrder({
+      recipient,
+      address,
+      message,
+      productId: productInfo.product.id,
+      quantity,
+      amount,
+    });
   };
 
   return (
