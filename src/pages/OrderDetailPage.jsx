@@ -21,12 +21,13 @@ export default function OrderDetailPage() {
     orderListStore.fetchOrderList();
   }, []);
 
-  const { orderList } = orderListStore;
+  const { orders } = orderListStore;
+  console.log(orders);
 
   const orderId = location.state.id;
   return (
     <>
-      {orderList.filter((order) => order.id === orderId)
+      {orders.filter((order) => order.id === orderId)
         .map((order) => (
           <div key={order.id}>
             <ProductImg src={poster} alt="posterImg" />

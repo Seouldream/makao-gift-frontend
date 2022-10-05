@@ -52,6 +52,15 @@ export default class ApiService {
 
     return products;
   }
+
+  async fetchOrderList() {
+    const url = `${baseUrl}/orders`;
+
+    const { data } = await axios.get(url);
+    const { orders } = data;
+
+    return orders;
+  }
 }
 
 export const apiService = new ApiService();

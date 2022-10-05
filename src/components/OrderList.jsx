@@ -1,7 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import useOrderListStore from '../hooks/UseOrderListStore';
-import numberFormat from '../utils/numberFormat';
 import stand from '../assets/whiteMonitorStand.jpeg';
 
 const ProductImg = styled.img`
@@ -12,9 +11,9 @@ const ProductImg = styled.img`
 export default function OrderList() {
   const orderListStore = useOrderListStore();
 
-  const { orderList } = orderListStore;
+  const { orders } = orderListStore;
 
-  if (!orderList.length) {
+  if (!orders.length) {
     return (
       <p>내가 주문한 내역이 없습니다.</p>
     );
@@ -25,7 +24,7 @@ export default function OrderList() {
       <h1>내가 주문한 내역입니다.</h1>
       <nav>
         <ul>
-          {orderList.map((order) => (
+          {orders.map((order) => (
             <Link
               style={{ display: 'block', margin: '1rem 0' }}
               to={`/orders/${order.id}`}
