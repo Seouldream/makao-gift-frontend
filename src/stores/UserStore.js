@@ -40,6 +40,8 @@ export default class UserStore {
 
       return accessToken;
     } catch (e) {
+      const { message } = e.response.data;
+      this.changeLoginState('fail', { errorMessage: message });
       return '';
     }
   }
@@ -65,6 +67,12 @@ export default class UserStore {
       const { message } = e.response.data;
       this.changeRegistrationState('existing', { errorMessage: message });
     }
+  }
+
+  changeLoginState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.loginState = state;
+    this.publish();
   }
 
   changeRegistrationState(state, { errorMessage = '' } = {}) {

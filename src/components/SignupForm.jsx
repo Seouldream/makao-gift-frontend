@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 
 import styled from 'styled-components';
 
-import useUserStore from '../hooks/UseUserStore';
+import useUserStore from '../hooks/useUserStore';
 
 const Container = styled.div`
   margin: auto;
@@ -24,7 +24,7 @@ const Title = styled.h2`
 
 const Form = styled.form`
   padding-top: 2.2em;
-  border-top: 2px solid #ABD9FF;
+  border-top: 2px solid #57CCFF;
 `;
 
 const Label = styled.label`
@@ -40,7 +40,10 @@ const Input = styled.input`
   border: 1px solid #A0A0A0;
   color: #A0A0A0;
   &:focus {
-    border: 1px solid #ABD9FF;
+    /* border: 1px solid #57CCFF;
+    border-color: #57CCFF; */
+    outline: none !important;
+    border-color: #57CCFF;
   }
 `;
 
@@ -58,9 +61,15 @@ const Button = styled.button`
   margin-top: 3em;
   padding: 1.8em 1em;
   width: 100%;
-  border: 1px solid #ABD9FF;
-  background-color: #ABD9FF;
+  border: 1px solid #57CCFF;
+  background-color: #57CCFF;
   color: #FFF;
+  :hover {
+    color: black;
+  }
+  :active {
+    background-color: #1db3f9;
+  }
 `;
 
 export default function SignupForm() {
@@ -172,7 +181,7 @@ export default function SignupForm() {
             null
           ) }
         </div>
-        <Button type="submit">
+        <Button type="submit" id="login-button">
           회원가입
         </Button>
       </Form>

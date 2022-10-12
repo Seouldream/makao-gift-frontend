@@ -1,10 +1,25 @@
-import { render, screen } from '@testing-library/react';
-import { userStore } from '../stores/UserStore';
+import { render, screen, waitFor } from '@testing-library/react';
+import { store } from 'codeceptjs';
+import UserStore from '../stores/UserStore';
+import server from '../testServer';
 import UserInfo from './UserInfo';
 
-test('UserInfo', async () => {
-  await userStore.fetchUser();
-  render(<UserInfo />);
+describe('UserStore', () => {
+  server.listen();
 
-  screen.getByText(/내 잔액:/);
+  let userStore;
+
+  beforeEach(() => {
+    userStore = new UserStore();
+  });
+
+  test('UserInfo', async () => {
+    await userStore.fetchUser();
+    render(<UserInfo />);
+
+    waitFor(() => {
+      screen.getByText(/내 잔액:/);
+      screen.getByText(/50000원:/);
+    });
+  });
 });

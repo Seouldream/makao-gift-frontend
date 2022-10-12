@@ -1,7 +1,6 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import useOrderListStore from '../hooks/UseOrderListStore';
-import stand from '../assets/whiteMonitorStand.jpeg';
+import useOrderListStore from '../hooks/useOrderListStore';
 
 const ProductImg = styled.img`
   width: 200px;
@@ -9,45 +8,67 @@ const ProductImg = styled.img`
 `;
 
 export default function OrderList() {
+  const navigate = useNavigate();
+
   const orderListStore = useOrderListStore();
 
-  const { orders } = orderListStore;
+  const { orders, pageNumbers } = orderListStore;
 
-  if (!orders.length) {
-    return (
-      <p>내가 주문한 내역이 없습니다.</p>
-    );
-  }
+  console.log('orderPageNumbers!', pageNumbers);
+
+  const handleClickPageButton = (number) => {
+    orderListStore.changePageNumber(number);
+    navigate(`/orders?page=${number}`);
+  };
 
   return (
-    <>
-      <h1>내가 주문한 내역입니다.</h1>
-      <nav>
-        <ul>
-          {orders.map((order) => (
-            <Link
-              style={{ display: 'block', margin: '1rem 0' }}
-              to={`/orders/${order.id}`}
-              key={order.id}
-              state={{
-                id: order.id,
-              }}
-            >
-              <li key={order.id}>
-                <ProductImg src={stand} alt="productImage" />
-                <br />
-                {order.brand}
-                <br />
-                {order.name}
-                <br />
-                To.
-                {order.recipient}
+    <div>
+      {orders.length === 0 ? (
+        <h1>내가 주문한 내역이 없습니다.</h1>
+      ) : (
+        <div>
+          <h1>내가 주문한 내역입니다.</h1>
+          <nav>
+            <ul>
+              {orders.map((order) => (
+                <Link
+                  style={{ display: 'block', margin: '1rem 0' }}
+                  to={`/orders/${order.id}`}
+                  key={order.id}
+                  state={{
+                    id: order.id,
+                  }}
+                >
+                  <li key={order.id}>
+                    <ProductImg src={order.url} alt="productImage" />
+                    <br />
+                    {order.brand}
+                    <br />
+                    {order.name}
+                    <br />
+                    To.
+                    {order.recipient}
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          </nav>
+          <ul>
+            {pageNumbers.map((number) => (
+              <li key={number}>
+                <button
+                  type="button"
+                  onClick={() => handleClickPageButton(number)}
+                >
+                  {number}
+                </button>
               </li>
-            </Link>
-          ))}
-        </ul>
-      </nav>
-      <Outlet />
-    </>
+            ))}
+          </ul>
+          <nav />
+          <Outlet />
+        </div>
+      )}
+    </div>
   );
 }

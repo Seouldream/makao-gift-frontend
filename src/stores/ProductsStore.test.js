@@ -40,7 +40,7 @@ describe('UserStore', () => {
   describe('login', () => {
     context('with correct user id and password', () => {
       it('loads user information', async () => {
-        await userStore.login({ userId: 'makaoKim', password: 'iammakaoKim92!' });
+        await userStore.login({ userId: 'makaoKim', password: 'makaoKim92!' });
 
         expect(userStore.name).toBe('makaoKim');
         expect(userStore.amount).toBe(50_000);
@@ -49,7 +49,7 @@ describe('UserStore', () => {
 
     context('with incorrect user id', () => {
       it('loads user information', async () => {
-        await userStore.login({ userId: 'xxx', password: 'iammakaoKim92!' });
+        await userStore.login({ userId: 'xxx', password: 'makaoKim92!' });
 
         expect(userStore.name).toBe('');
         expect(userStore.amount).toBe(0);

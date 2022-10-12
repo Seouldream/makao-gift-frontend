@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { orderListStore } from '../stores/OrderListStore';
 
-import useForceUpdate from './UseForceUpdate';
+import useForceUpdate from './useForceUpdate';
 
 export default function useOrderListStore() {
   const forceUpdate = useForceUpdate();

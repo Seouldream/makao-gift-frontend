@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
 
 import styled from 'styled-components';
-import useUserStore from '../hooks/UseUserStore';
+import useUserStore from '../hooks/useUserStore';
+import useForceUpdate from '../hooks/useForceUpdate';
 
 const Container = styled.div`
   margin: auto;
@@ -64,6 +65,8 @@ const Error = styled.div`
 export default function LoginForm() {
   const navigate = useNavigate();
 
+  const forceUpdate = useForceUpdate();
+
   const [, setAccessToken] = useLocalStorage('accessToken', '');
 
   const userStore = useUserStore();
@@ -73,10 +76,10 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     const { userId, password } = data;
     const accessToken = await userStore.login({ userId, password });
-
+    setAccessToken(accessToken);
     if (accessToken) {
-      setAccessToken(accessToken);
       navigate('/');
+      forceUpdate();
     }
   };
 

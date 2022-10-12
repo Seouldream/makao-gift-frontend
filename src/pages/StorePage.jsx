@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Products from '../components/Products';
-import useProductsStore from '../hooks/UseProductsStore';
+import useProductsStore from '../hooks/useProductsStore';
 
 export default function StorePage() {
   const productsStore = useProductsStore();
@@ -9,7 +10,20 @@ export default function StorePage() {
     productsStore.fetchProducts();
   }, []);
 
+  const navigate = useNavigate();
+
+  const { products, pageNumbers } = productsStore;
+
+  const handleClickPageButton = (number) => {
+    productsStore.changePageNumber(number);
+    navigate(`/products?page=${number}`);
+  };
+
   return (
-    <Products />
+    <Products
+      products={products}
+      pageNumbers={pageNumbers}
+      onClickPageButton={handleClickPageButton}
+    />
   );
 }

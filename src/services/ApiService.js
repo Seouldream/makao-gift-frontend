@@ -5,6 +5,14 @@ import config from '../config';
 const baseUrl = config.apiBaseUrl;
 
 export default class ApiService {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
   async postSession({ userId, password }) {
     const url = `${baseUrl}/session`;
     const { data } = await axios.post(url, { userId, password });
@@ -18,7 +26,7 @@ export default class ApiService {
   async createUser({
     userId, name, password, confirmPassword,
   }) {
-    const url = `${baseUrl}/signup`;
+    const url = `${baseUrl}/register`;
 
     const { data } = await axios.post(url, {
       userId, name, password, confirmPassword,
@@ -34,13 +42,17 @@ export default class ApiService {
   async fetchUser() {
     const url = `${baseUrl}/users/me`;
 
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+    const {
+      userId, name, amount,
+    } = data;
 
     return {
-      id: data.id,
-      userId: data.userId,
-      name: data.name,
-      amount: data.amount,
+      userId, name, amount,
     };
   }
 
@@ -48,18 +60,23 @@ export default class ApiService {
     const url = `${baseUrl}/products`;
 
     const { data } = await axios.get(url);
-    const { products } = data;
 
-    return products;
+    const { products, pageNumber } = data;
+
+    return { products, pageNumber };
   }
 
   async fetchOrderList() {
     const url = `${baseUrl}/orders`;
 
-    const { data } = await axios.get(url);
-    const { orders } = data;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
-    return orders;
+    const { orders, pageNumber } = data;
+    return { orders, pageNumber };
   }
 
   async createAnOrder({
@@ -78,7 +95,38 @@ export default class ApiService {
       productId,
       quantity,
       amount,
+    }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
     });
+  }
+
+  async changePageNumber(number) {
+    const url = `${baseUrl}/products`;
+
+    const { data } = await axios.get(url, {
+      params: {
+        page: number,
+      },
+    });
+
+    return data.products;
+  }
+
+  async changeOrderPageNumber(number) {
+    const url = `${baseUrl}/orders`;
+
+    const { data } = await axios.get(url, {
+      params: {
+        page: number,
+      },
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
+
+    return data.orders;
   }
 }
 

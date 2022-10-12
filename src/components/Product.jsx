@@ -1,25 +1,33 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-// import LoginForm from '../components/LoginForm';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import cat from '../assets/uselessCandy1.jpeg';
-import minus from '../assets/minus-gray.png';
-import plus from '../assets/plus-black.png';
-import useProductsStore from '../hooks/UseProductsStore';
-import numberFormat from '../utils/numberFormat';
 
+import { Link, useParams } from 'react-router-dom';
+
+import styled from 'styled-components';
+
+import useProductsStore from '../hooks/useProductsStore';
+
+import numberFormat from '../utils/NumberFormat';
+
+// import minus from '../assets/images/minus-gray.png';
+
+// import plus from '../assets/images/plus-black.png';
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns:1fr 1fr;
+`;
 const ProductImage = styled.img`
   width: 300px;
-  height: 300px
+  height: 300px;
 `;
 
 const ButtonImage = styled.img`
   width: 20px;
-  height: 20px
+  height: 20px;
 `;
 
-export default function ProductDetailPage() {
+export default function Product() {
   const params = useParams();
 
   const [count, setCount] = useState(1);
@@ -46,22 +54,18 @@ export default function ProductDetailPage() {
     setCount(count + 1);
   };
 
-  const handleClickOrder = () => {
-
-  };
-
   useEffect(() => {
     setAmount(initialPrice * count);
   }, [count]);
 
   return (
-    <>
+    <Container>
       {products.filter((product) => product.id === parseInt(params.productId, 10))
         .map((product) => (
           <div key={product.id}>
             <ProductImage
               // eslint-disable-next-line import/no-dynamic-require, global-require
-              src={cat}
+              src={product.url}
               alt="productImg"
             />
             <h1>{product.name}</h1>
@@ -76,17 +80,17 @@ export default function ProductDetailPage() {
             <span>
               구매수량
               <button type="button" onClick={handleClickCountDown}>
-                <ButtonImage src={minus} alt="countDown" />
+                <ButtonImage src="{minus}" alt="countDown" />
               </button>
               {count}
               <button type="button" onClick={handleClickCountUp}>
-                <ButtonImage src={plus} alt="countDown" />
+                <ButtonImage src="{plus}" alt="countUp" />
               </button>
             </span>
             <hr />
             상품설명
             {' '}
-            이 상품은 이러이러합디다.
+            {product.description}
             <hr />
             <p>
               총 상품금액:
@@ -102,13 +106,13 @@ export default function ProductDetailPage() {
                 product,
                 quantity: count,
                 amount,
-                url: cat,
+                url: '',
               }}
             >
               <button type="button">선물하기</button>
             </Link>
           </div>
         ))}
-    </>
+    </Container>
   );
 }

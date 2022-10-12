@@ -4,6 +4,8 @@ export default class OrderListStore {
   constructor() {
     this.listeners = new Set();
 
+    this.pageNumbers = [];
+
     this.orders = [];
 
     this.orderState = '';
@@ -25,7 +27,14 @@ export default class OrderListStore {
     this.orders = [];
     this.publish();
 
-    this.orders = await apiService.fetchOrderList();
+    const { orders, pageNumber } = await apiService.fetchOrderList();
+
+    this.orders = orders;
+
+    this.pageNumbers = [...Array(pageNumber)].map((number, index) => index + 1);
+
+
+    console.log('OrderListStorepageNumbers!!', pageNumber);
 
     this.publish();
   }
@@ -61,6 +70,13 @@ export default class OrderListStore {
   changeOrderState(state, { errorMessage = '' } = {}) {
     this.errorMessage = errorMessage;
     this.orderState = state;
+    this.publish();
+  }
+
+  async changePageNumber(number) {
+    this.orders = [];
+
+    this.orders = await apiService.changePageNumber(number);
     this.publish();
   }
 }

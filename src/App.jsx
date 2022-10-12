@@ -1,15 +1,21 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { Reset } from 'styled-reset';
+import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
+import useForceUpdate from './hooks/useForceUpdate';
+import useUserStore from './hooks/useUserStore';
+
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import OrderDetailPage from './pages/OrderDetailPage';
 import OrderListPage from './pages/OrderListPage';
 import OrderPage from './pages/OrderPage';
-import ProductDetailPage from './pages/ProductDetailPage';
+import ProductPage from './pages/ProductPage';
 import SignupPage from './pages/SignupPage';
 import StorePage from './pages/StorePage';
+import { apiService } from './services/ApiService';
 import GlobalStyle from './styles/GlobalStyle';
 
 const Main = styled.main`
@@ -21,18 +27,33 @@ const Main = styled.main`
 `;
 
 export default function App() {
+  const userStore = useUserStore();
+
+  const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
+
+  useEffect(() => {
+    apiService.setAccessToken(accessToken);
+    if (accessToken) {
+      userStore.fetchUser();
+      console.log('accessToken FROM APP', accessToken);
+    }
+  }, [accessToken]);
+
   return (
     <>
       <Reset />
       <GlobalStyle />
-      <Header />
+      <Header
+        accessToken={accessToken}
+        setAccessToken={setAccessToken}
+      />
       <Main>
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/products" element={<StorePage />} />
-          <Route path="/products/:productId" element={<ProductDetailPage />} />
+          <Route path="/products/:productId" element={<ProductPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/orders" element={<OrderListPage />} />
           <Route path="/orders/:productId" element={<OrderDetailPage />} />

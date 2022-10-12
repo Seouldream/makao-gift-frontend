@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import OrderList from '../components/OrderList';
-import useOrderListStore from '../hooks/UseOrderListStore';
+import useOrderListStore from '../hooks/useOrderListStore';
 
 export default function OrderListPage() {
   const orderListStore = useOrderListStore();
