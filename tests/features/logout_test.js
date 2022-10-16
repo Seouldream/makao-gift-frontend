@@ -1,25 +1,25 @@
 Feature('로그아웃');
 
-// Given
 Before(({ I }) => {
-  I.setupDatabase();
+  I.amOnPage('/login');
+
 });
 
 Scenario('로그아웃', ({ I }) => {
   // given
-  I.login('1234');
+  I.fillField('아이디', 'makaoKim');
+  I.fillField('비밀번호', 'makaoKim92!');
 
-  I.amOnPage('/');
+  I.click('로그인하기');
 
-  I.click('잔액 확인');
-
-  I.see('계좌번호: 1234');
-
-  I.click('로그아웃');
+  I.see('내 잔액: 47,000원');
 
   // when
-
+  I.click('로그아웃');
   // then
-  I.dontSee('잔액 확인');
-  I.dontSee('계좌번호: 1234');
+
+  I.dontSee('내 잔액: 47,000원');
+  I.dontSee('로그아웃');
+
+  I.see('로그인');
 });

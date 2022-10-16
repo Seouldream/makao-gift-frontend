@@ -14,8 +14,6 @@ export default function OrderList() {
 
   const { orders, pageNumbers } = orderListStore;
 
-  console.log('orderPageNumbers!', pageNumbers);
-
   const handleClickPageButton = (number) => {
     orderListStore.changePageNumber(number);
     navigate(`/orders?page=${number}`);

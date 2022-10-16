@@ -32,10 +32,9 @@ export default class ApiService {
       userId, name, password, confirmPassword,
     });
     return {
+      id: data.id,
       userId: data.userId,
-      name: data.name,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
+      amount: data.amount,
     };
   }
 

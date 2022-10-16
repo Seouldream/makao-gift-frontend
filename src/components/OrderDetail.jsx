@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import useOrderListStore from '../hooks/useOrderListStore';
-import numberFormat from '../utils/numberFormat';
 
 const ProductImg = styled.img`
   width: 300px;
@@ -21,7 +20,6 @@ export default function OrderDetail() {
   }, []);
 
   const { orders } = orderListStore;
-  console.log(orders);
 
   const orderId = location.state.id;
   return (

@@ -57,9 +57,10 @@ export default class UserStore {
   }
 
   async register({
-    name, userId, password, confirmPassword,
+    userId, name, password, confirmPassword,
   }) {
     try {
+      this.changeRegistrationState('');
       await apiService.createUser({
         userId, name, password, confirmPassword,
       });

@@ -6,6 +6,7 @@ const Button = styled.button`
     background: transparent;
     color: inherit;
     cursor: pointer;
+    padding: 0 2rem;
 `;
 
 export default Button;

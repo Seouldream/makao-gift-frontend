@@ -33,9 +33,6 @@ export default class OrderListStore {
 
     this.pageNumbers = [...Array(pageNumber)].map((number, index) => index + 1);
 
-
-    console.log('OrderListStorepageNumbers!!', pageNumber);
-
     this.publish();
   }
 

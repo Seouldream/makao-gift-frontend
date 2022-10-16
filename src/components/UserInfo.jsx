@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import useUserStore from '../hooks/useUserStore';
@@ -10,10 +9,6 @@ const Component = styled.p`
 
 export default function UserInfo() {
   const userStore = useUserStore();
-
-  useEffect(() => {
-    userStore.fetchUser();
-  }, []);
 
   return (
     <Component>

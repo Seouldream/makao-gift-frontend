@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Products from '../components/Products';
 import useProductsStore from '../hooks/useProductsStore';
 
-export default function StorePage() {
+export default function StorePage({ accessToken }) {
   const productsStore = useProductsStore();
 
   useEffect(() => {
@@ -24,6 +24,7 @@ export default function StorePage() {
       products={products}
       pageNumbers={pageNumbers}
       onClickPageButton={handleClickPageButton}
+      accessToken={accessToken}
     />
   );
 }

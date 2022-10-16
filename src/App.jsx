@@ -35,7 +35,6 @@ export default function App() {
     apiService.setAccessToken(accessToken);
     if (accessToken) {
       userStore.fetchUser();
-      console.log('accessToken FROM APP', accessToken);
     }
   }, [accessToken]);
 
@@ -52,7 +51,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/products" element={<StorePage />} />
+          <Route path="/products" element={<StorePage accessToken={accessToken} />} />
           <Route path="/products/:productId" element={<ProductPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/orders" element={<OrderListPage />} />

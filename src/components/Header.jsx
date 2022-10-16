@@ -18,26 +18,33 @@ const Container = styled.header`
 
 const MenuContainer = styled.div`
   display: flex;
-  justify-content: space-around;
   color: #FFF;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8rem;
 `;
 
 const LoginNavigation = styled.nav`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8rem;
+
+  li {
+    
+    a{
+      &:focus , &hover {
+        text-decoration: underline;
+        text-decoration-color: #57CCFF;
+        text-decoration-thickness: .3em;
+      }
+    }   
+  }
 `;
 
-const Navigation = styled.nav`
+const LoginMenu = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const LoginMenu = styled.ul`
-  display: flex;
-  align-items: center;
-  right: 5em;
-  gap: 3em;
-
 `;
 
 const MenuList = styled.ul`
@@ -45,8 +52,7 @@ const MenuList = styled.ul`
   gap: 3.5em;
 
   li {
-    /* box-shadow: inset 0 -5px 0 orange;
-    line-height: 10px; */
+    
     a{
       &:focus , &hover {
         text-decoration: underline;
@@ -57,13 +63,7 @@ const MenuList = styled.ul`
     }
 `;
 
-const LoginButtonBox = styled.div`
-  display: flex;
-  gap: 2em;
-`;
-
 const Home = styled.li`
-  padding: 1em 2.5em;
 
   a{
       &:focus , &hover {
@@ -73,6 +73,15 @@ const Home = styled.li`
       }
     }
 `;
+
+const Info = styled.span`
+  padding: 0 2rem;
+`;
+
+const Heading = styled.h1`
+  color: black;
+`;
+
 export default function Header({ accessToken, setAccessToken }) {
   const userStore = useUserStore();
 
@@ -86,8 +95,6 @@ export default function Header({ accessToken, setAccessToken }) {
     orderListStore.orderState = '';
   };
 
-  console.log('accessToken FROM HEADER', accessToken);
-
   const handleLogout = () => {
     setAccessToken('');
     handleClickResetState();
@@ -98,36 +105,52 @@ export default function Header({ accessToken, setAccessToken }) {
     <Container>
       {accessToken ? (
         <MenuContainer>
-          <Navigation>
+          <nav>
             <MenuList>
-              <li className="fff">
+              <Heading>선물하기</Heading>
+              <li>
                 <Link to="/">홈</Link>
               </li>
               <li>
                 <Link to="/products">스토어</Link>
               </li>
               <li>
-                <Link to="/orders">주문조회</Link>
-              </li>
-              <li>
-                <UserInfo />
+                <Link
+                  to="/orders"
+                >
+                  주문조회
+                </Link>
               </li>
             </MenuList>
-          </Navigation>
-          <LoginButtonBox>
+          </nav>
+          <LoginMenu>
+            <Info>
+              <UserInfo />
+            </Info>
             <PrimaryButton
               type="button"
               onClick={handleLogout}
             >
               로그아웃
             </PrimaryButton>
-          </LoginButtonBox>
+          </LoginMenu>
         </MenuContainer>
       ) : (
         <LoginNavigation>
-          <Home>
-            <Link to="/">홈</Link>
-          </Home>
+          <nav>
+            <MenuList>
+              <h1>선물하기</h1>
+              <Home>
+                <Link to="/">홈</Link>
+              </Home>
+              <li>
+                <Link to="/products">스토어</Link>
+              </li>
+              <li>
+                <Link to="/login">주문조회</Link>
+              </li>
+            </MenuList>
+          </nav>
           <LoginMenu>
             <Link to="/signup">
               <Button onClick={handleClickResetState}>

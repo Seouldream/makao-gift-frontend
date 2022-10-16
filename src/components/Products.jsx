@@ -4,8 +4,7 @@ import numberFormat from '../utils/NumberFormat';
 
 const MessageContainer = styled.div`
   position: relative;
-  padding: 0 2rem;
-
+  padding: 0 1rem 2rem;
 
 `;
 
@@ -14,7 +13,6 @@ const Banner = styled.img`
   height: 15vh;
   top:5rem;
   left:25%;
-  border-bottom: 1px solid black;
 `;
 
 const ProductImg = styled.img`
@@ -41,6 +39,7 @@ const Line3 = styled.p`
 const Heading = styled.h1`
   padding: 3rem 0.5rem 1rem 0 ;
   font-weight: bold;
+  border-top: 1px solid black;
 `;
 
 const ProductList = styled.ul`
@@ -69,7 +68,7 @@ const Detail3 = styled.p`
 `;
 
 export default function Products({
-  products, pageNumbers, onClickPageButton,
+  products, pageNumbers, onClickPageButton, accessToken,
 }) {
   if (!products.length) {
     return (
@@ -83,7 +82,11 @@ export default function Products({
 
   return (
     <>
-      <Banner src="banner" data-testid="background" alt="" />
+      <Banner
+        src="https://github.com/Seouldream/makao-gift-frontend/blob/makaogift-frontend/banner.png?raw=true"
+        data-testid="background"
+        alt=""
+      />
       <MessageContainer>
         <Line1>평범한 선물은 주기도 민망하다구요?</Line1>
         <Line2>
@@ -101,9 +104,10 @@ export default function Products({
               style={{ display: 'block', margin: '1rem 0' }}
               to={`/products/${product.id}`}
               key={product.id}
+              state={{ accessToken }}
             >
               <li key={product.id}>
-                <ProductImg src={product.url} alt="cupImage" />
+                <ProductImg src={product.url} alt="productImage" />
                 <Detail1>
                   {product.brand}
                 </Detail1>
@@ -133,7 +137,6 @@ export default function Products({
           ))}
         </ul>
       </nav>
-
     </>
   );
 }

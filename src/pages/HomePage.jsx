@@ -1,7 +1,4 @@
-// import { useNavigate } from 'react-router-dom';
-
 import styled from 'styled-components';
-// import gift from '../assets/images/001.png';
 
 const Container = styled.div`
   position: absolute;
@@ -25,16 +22,16 @@ const Line2 = styled.p`
 `;
 
 const Image = styled.img`
-  width:35em;
+  width:35vw;
   position: absolute;
-  top:-70%;
-  left:50%;
+  top:-100%;
+  left:30%;
 `;
 
 export default function HomePage() {
   return (
     <Container>
-      <Image src="" />
+      <Image src="https://github.com/Seouldream/makao-gift-frontend/blob/makaogift-frontend/001.png?raw=true" />
       <Line1>
         무엇을 선물할 지  고민이라면
       </Line1>

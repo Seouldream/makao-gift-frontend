@@ -82,8 +82,6 @@ export default function SignupForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    userStore.registrationState = '';
-
     const {
       userId, name, password, confirmPassword,
     } = data;
@@ -140,7 +138,7 @@ export default function SignupForm() {
               {userStore.errorMessage}
             </Error>
           ) : errors.userId ? (
-            <Error>에러 메세지 입력 필요합니다.(8글자)</Error>
+            <Error>영문소문자/숫자,4~16자만 사용가능</Error>
           ) : (
             <P>영문소문자/숫자,4~16자만 사용가능</P>
           ) }
